@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pal_grad.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class Intro : Fragment() {
     override fun onCreateView (
@@ -15,6 +16,7 @@ class Intro : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.intro, container)
     }
+
 
     companion object {
         fun create(): Intro {
