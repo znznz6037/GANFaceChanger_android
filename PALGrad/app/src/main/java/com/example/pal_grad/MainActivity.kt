@@ -5,20 +5,14 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.android.volley.Response
-import com.android.volley.toolbox.Volley
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_main.*
-import com.example.pal_grad.fragment.ResourceStore
-import java.io.IOException
-import java.lang.reflect.Method
+
 
 class MainActivity : AppCompatActivity() {
     private var imageData: ByteArray? = null
@@ -30,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setViewPager()
         setTab()
+        apiTest()
         this.window.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = Color.WHITE
@@ -68,33 +63,3 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    fun uploadImage() {
-        imageData?: return
-        val request = object : VolleyFileUploadRequest(
-                Method.POST,
-                postURL,
-                Response.Listener {
-                    println("response is: $it")
-                },
-                Response.ErrorListener {
-                    println("error is: $it")
-                }
-        ) {
-            override fun getByteData(): MutableMap<String, FileDataPart> {
-                var params = HashMap<String, FileDataPart>()
-                params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
-                return params
-            }
-        }
-        Volley.newRequestQueue(this).add(request)
-    }
-
-    @Throws(IOException::class)
-    fun createImageData(uri: Uri) {
-        val inputStream = contentResolver.openInputStream(uri)
-        inputStream?.buffered()?.use {
-            imageData = it.readBytes()
-        }
-    }
-
-}

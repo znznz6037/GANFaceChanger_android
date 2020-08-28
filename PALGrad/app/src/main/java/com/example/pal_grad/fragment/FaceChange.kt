@@ -13,9 +13,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.android.volley.Request.Method.POST
-import com.android.volley.Response
-import com.android.volley.toolbox.Volley
 import com.example.pal_grad.MainActivity
 import com.example.pal_grad.R
 
@@ -47,16 +44,7 @@ class FaceChange : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view:View = inflater.inflate(R.layout.face_change_fragment, container, false)
-            view.face_upload_gallery.setOnClickListener { view->
-                openGalleryForImage()
-        }
-            view.face_upload_camera.setOnClickListener{ view ->
-                captureCamera()
-        }
-            view.sendButton.setOnClickListener{
-                view -> (activity as MainActivity).uploadImage()
-            }
+
         return view
     }
 
