@@ -12,7 +12,22 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.pal_grad.api.StarGANAPI
 
+import com.example.pal_grad.api.StarGANResult
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.activity_main.*
+import com.example.pal_grad.fragment.ResourceStore
+
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     private var imageData: ByteArray? = null
@@ -25,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         setViewPager()
         setTab()
         apiTest()
+
         this.window.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = Color.WHITE
@@ -63,3 +79,58 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
+/*    fun uploadImage() {
+        imageData?: return
+        val request = object : VolleyFileUploadRequest(
+                Method.POST,
+                postURL,
+                Response.Listener {
+                    println("response is: $it")
+                },
+                Response.ErrorListener {
+                    println("error is: $it")
+                }
+        ) {
+            override fun getByteData(): MutableMap<String, FileDataPart> {
+                var params = HashMap<String, FileDataPart>()
+                params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
+                return params
+            }
+        }
+        Volley.newRequestQueue(this).add(request)
+    }
+
+    @Throws(IOException::class)
+    fun createImageData(uri: Uri) {
+        val inputStream = contentResolver.openInputStream(uri)
+        inputStream?.buffered()?.use {
+            imageData = it.readBytes()
+        }
+    }*/
+fun apiTest(){
+    val url = "https://psbgrad.duckdns.org:5000"
+
+    val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    val api = retrofit.create(StarGANAPI::class.java)
+    val test = api.getResult()
+
+    test.enqueue(object : Callback<StarGANResult> {
+        override fun onResponse(
+                call: Call<StarGANResult>,
+                response: Response<StarGANResult>
+        ) {
+            Log.d("결과", "성공 : ${response.body().toString()}")
+        }
+
+        override fun onFailure(call: Call<StarGANResult>, t: Throwable) {
+            Log.d("결과:", "실패 : $t")
+        }
+    })
+}
+}
+
+
+}
