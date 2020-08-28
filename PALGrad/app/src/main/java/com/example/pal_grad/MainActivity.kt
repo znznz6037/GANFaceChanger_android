@@ -107,30 +107,28 @@ class MainActivity : AppCompatActivity() {
             imageData = it.readBytes()
         }
     }*/
-fun apiTest(){
-    val url = "https://psbgrad.duckdns.org:5000"
+    fun apiTest(){
+        val url = "https://psbgrad.duckdns.org:5000"
 
-    val retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    val api = retrofit.create(StarGANAPI::class.java)
-    val test = api.getResult()
+        val retrofit = Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        val api = retrofit.create(StarGANAPI::class.java)
+        val test = api.getResult()
 
-    test.enqueue(object : Callback<StarGANResult> {
-        override fun onResponse(
-                call: Call<StarGANResult>,
-                response: Response<StarGANResult>
-        ) {
-            Log.d("결과", "성공 : ${response.body().toString()}")
-        }
+        test.enqueue(object : Callback<StarGANResult> {
+            override fun onResponse(
+                    call: Call<StarGANResult>,
+                    response: Response<StarGANResult>
+            ) {
+                Log.d("결과", "성공 : ${response.body().toString()}")
+            }
 
-        override fun onFailure(call: Call<StarGANResult>, t: Throwable) {
-            Log.d("결과:", "실패 : $t")
-        }
-    })
+            override fun onFailure(call: Call<StarGANResult>, t: Throwable) {
+                Log.d("결과:", "실패 : $t")
+            }
+        })
+    }
 }
-}
 
-
-}

@@ -1,8 +1,10 @@
 package com.example.pal_grad
 
+import android.util.Log
 import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
 import java.io.*
+import java.util.logging.Logger
 import kotlin.math.min
 
 
@@ -97,6 +99,7 @@ open class VolleyFileUploadRequest(
                 dataOutputStream.writeBytes("Content-Type: ${dataFile.type}$ending")
             }
             dataOutputStream.writeBytes(ending)
+
             val fileInputStream = ByteArrayInputStream(dataFile.data)
             var bytesAvailable = fileInputStream.available()
             val maxBufferSize = 1024 * 1024
