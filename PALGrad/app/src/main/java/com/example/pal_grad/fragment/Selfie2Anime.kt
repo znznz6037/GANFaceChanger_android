@@ -13,12 +13,12 @@ class Selfie2Anime : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.intro, container)
+        return inflater.inflate(R.layout.selfie2anime_change_fragment, container)
     }
 
     companion object {
-        fun create(): Intro {
-            return Intro()
+        fun create(): Selfie2Anime {
+            return Selfie2Anime()
         }
     }
 }

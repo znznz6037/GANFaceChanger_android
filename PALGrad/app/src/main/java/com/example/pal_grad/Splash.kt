@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 
+
 /**
  * Created by dlehd on 2020-08-02.
  */
