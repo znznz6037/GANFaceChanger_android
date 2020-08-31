@@ -1,24 +1,25 @@
 package com.example.pal_grad
 
-import android.content.pm.PackageManager
+
 import android.graphics.Color
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.Window
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.pal_grad.api.StarGANAPI
 
 import com.example.pal_grad.api.StarGANResult
+import com.example.pal_grad.api.response.ApiConfig
+import com.example.pal_grad.api.response.Default
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.pal_grad.fragment.ResourceStore
+import okhttp3.MultipartBody
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,20 +27,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-import java.io.IOException
-
 class MainActivity : AppCompatActivity() {
-    private var imageData: ByteArray? = null
-    //private val postURL: String = "https://550ea0286ce3a5d13349ac2d6e4e9446.m.pipedream.net" // remember to use your own api
-    private val postURL: String = "https://psbgrad.duckdns.org:5000/upload" // remember to use your own api
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_main)
         setViewPager()
         setTab()
-        apiTest()
+
 
         this.window.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -48,15 +43,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         finish()
-    }
-    fun checkPermission(permissions: Array<out String>, flag: Int): Boolean {
-        for(permission in permissions) {
-            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, permissions, flag)
-                return false
-            }
-        }
-        return true
     }
     private fun setViewPager() {
         viewpager.adapter = object : FragmentStateAdapter(this) {
@@ -78,35 +64,6 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
     }
-
-/*    fun uploadImage() {
-        imageData?: return
-        val request = object : VolleyFileUploadRequest(
-                Method.POST,
-                postURL,
-                Response.Listener {
-                    println("response is: $it")
-                },
-                Response.ErrorListener {
-                    println("error is: $it")
-                }
-        ) {
-            override fun getByteData(): MutableMap<String, FileDataPart> {
-                var params = HashMap<String, FileDataPart>()
-                params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
-                return params
-            }
-        }
-        Volley.newRequestQueue(this).add(request)
-    }
-
-    @Throws(IOException::class)
-    fun createImageData(uri: Uri) {
-        val inputStream = contentResolver.openInputStream(uri)
-        inputStream?.buffered()?.use {
-            imageData = it.readBytes()
-        }
-    }*/
     fun apiTest(){
         val url = "https://psbgrad.duckdns.org:5000"
 
@@ -127,6 +84,29 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<StarGANResult>, t: Throwable) {
                 Log.d("결과:", "실패 : $t")
+            }
+        })
+    }
+
+    public fun upload(imagename: MultipartBody.Part){
+        // init retrofit
+        val call = ApiConfig().instance().upload(imagename)
+
+        // membaut request ke api
+        call.enqueue(object : retrofit2.Callback<Default>{
+
+            // handling request saat fail
+            override fun onFailure(call: Call<Default>?, t: Throwable?) {
+                Toast.makeText(applicationContext,"Connection error", Toast.LENGTH_SHORT).show()
+                Log.d("ONFAILURE",t.toString())
+                println("실패")
+            }
+            // handling request saat response.
+            override fun onResponse(call: Call<Default>?, response: Response<Default>?) {
+                // menampilkan pesan yang diambil dari response.
+                Toast.makeText(applicationContext,response?.body()?.message, Toast.LENGTH_SHORT).show()
+                println("성공")
+                // saat pesan mempunyai kata 'success' maka tutup/akhiri activity ini.
             }
         })
     }
