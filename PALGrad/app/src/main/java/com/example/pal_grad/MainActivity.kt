@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Default>?, t: Throwable?) {
                 Toast.makeText(applicationContext,"Connection error", Toast.LENGTH_SHORT).show()
                 Log.d("ONFAILURE",t.toString())
+                println("실패")
             }
             // handling request saat response.
             override fun onResponse(call: Call<Default>?, response: Response<Default>?) {

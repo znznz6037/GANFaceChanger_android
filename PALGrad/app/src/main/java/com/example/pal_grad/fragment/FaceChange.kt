@@ -33,7 +33,6 @@ class FaceChange : Fragment() {
             val i = Intent(activity, ImagePickActivity::class.java)
             i.putExtra(Constant.MAX_NUMBER, 1)
             startActivityForResult(i, REQUEST_CODE_PICK_IMAGE)
-            println("what is i" + i)
     }
 
     override fun onCreateView(
@@ -47,6 +46,9 @@ class FaceChange : Fragment() {
         }
         view.sendButton.setOnClickListener{
             (activity as MainActivity).upload(imagename)
+        }
+        view.getImage.setOnClickListener{
+            /*glideOpenForImage()*/
         }
 /*        view.api_test.setOnClickListener {
             (activity as MainActivity).apiTest()
@@ -67,7 +69,12 @@ class FaceChange : Fragment() {
             val requestBody = RequestBody.create(MediaType.parse("multipart"), File(pickedImg))
             imagename = MultipartBody.Part.createFormData("imagename", File(pickedImg)?.name, requestBody)
             Glide.with(this).load(pickedImg).into(faceImageView)
-            println("picked Image?" + pickedImg)
         }
     }
+
+/*    fun glideOpenForImage() {
+        val url = "https://pipedream-catcher-bodies.s3.amazonaws.com/88770bc5-e5d0-406b-b363-d804ad620ebb?AWSAccessKeyId=ASIA5F5AGIEAVPQ55KLU&Expires=1598867649&Signature=fMlcozEqdPVhjFdLgu3%2FpaPLR4I%3D&x-amz-security-token=FwoGZXIvYXdzEHMaDCn1eOWmgFMLOQMGqSKNBF87VfHF0HIL%2BuWPGC5WCFsiCM2Wg4NGIMJFPdwf0SspYMFyfGBoMYoJ5quzUhwLe6rc%2BZt%2B7EsIb%2BSVos3H3M7P7YUDurvXFrXt0GXzNDQDe9NQbfksxfKxiWMRhTtq64zwYQ4Oda7fH%2BNRbHW9WgPRgyBg1%2Byc7uQ41bYyuPfPZuxhlyeV0VbXXCadAhQu3zHZ7LzWSwNVKlNwqYLXZSohwF9zZ%2FyWqX2CSVk0RAukBpO16xIRWSyCZfWVevSQWnKD61%2FkoDHNBoynswZUTbT3ag7G7h0peF15PrL1ozY%2FKHmY%2BuDut0xabcbpvaTr338NFemDZL1n3yGIVhqyITXN7YusUWuhwkcen%2BIwU3glA4wrlIrylk%2F%2BvFt18JLGwCu4MKQ53EluZN2WdOPQlewrtyOlkiJ1cAs2mZjmMpYT2VDrysQt5vLgwp0raQxvErRN9PgbuoyQz%2BYUAbR9FUqqlYhixryYw%2FQ2lEXTFVQB0ZJ1ZYKXvfZjNuV7311YRTUbosc9rY8YDFSRn3veMczMnTrqNrGZuiGzG%2B%2BHn4AZLbTl%2BVwQPxryz16H%2BcJqzGy7IhH8aBrndka0fRjLIs0i6Z538VtDv140OXBAgEVloVA1EhHaLkOb0h0XChMOEk0Z8WUmjNo17%2FD1OGoe%2BrTApOU7Vffh6P5dqvJRiNre2%2BpSxEaKisAOYACDSii5g7P6BTIqyPsKKAC8VfLlmhCVnEK4Q48aB4%2FWRCgCAJ60lci17opqi6uGSyeMnHBn"
+        Glide.with(this).load(url).into(faceChangeView)
+
+    }*/
 }
