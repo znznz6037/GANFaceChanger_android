@@ -11,37 +11,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/faceImageView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            tools:srcCompat="@drawable/app_icon" />
+            android:layout_height="270dp">
+            <ImageView
+                android:id="@+id/faceImageView"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                tools:srcCompat="@drawable/app_icon" />
+            <ImageView
+                android:id="@+id/faceChangeView"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                tools:srcCompat="@drawable/app_icon" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/face_upload_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="갤러리" />
-        <Button
-            android:id="@+id/face_upload_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사진촬영" />
-        <Button
-            android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Upload Image"></Button>
-
-        <Button
-            android:id="@+id/api_test"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/face_upload_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="갤러리" />
+
+            <Button
+                android:id="@+id/face_upload_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사진촬영" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <Button
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
