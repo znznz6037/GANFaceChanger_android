@@ -11,23 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="270dp">
+            <ImageView
+                android:id="@+id/faceImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                tools:srcCompat="@drawable/app_icon" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/faceImageView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            tools:srcCompat="@drawable/app_icon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/face_upload_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="갤러리" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/face_upload_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이미지 업로드" />
-        <Button
-            android:id="@+id/face_upload_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="사진촬영" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <Button
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

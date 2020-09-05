@@ -16,12 +16,7 @@
             android:layout_height="270dp">
             <ImageView
                 android:id="@+id/faceImageView"
-                android:layout_width="150dp"
-                android:layout_height="250dp"
-                tools:srcCompat="@drawable/app_icon" />
-            <ImageView
-                android:id="@+id/faceChangeView"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 tools:srcCompat="@drawable/app_icon" />
         </LinearLayout>
@@ -34,12 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="갤러리" />
-
-            <Button
-                android:id="@+id/face_upload_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="사진촬영" />
         </LinearLayout>
 
         <LinearLayout
